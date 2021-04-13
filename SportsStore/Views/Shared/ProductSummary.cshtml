@@ -1,0 +1,56 @@
+﻿@model SportsStore.Model.Entities.Product
+<div class="u anim" style="--delay: .4s">
+
+    <div class="u-wrapper">
+        <div class="u-time">@Model.Firma</div>
+        <a class="sidebar-link"
+           href="@Url.Action("ProductView","Product",new { id = @Model.ProductID})">
+            <img class="img-card" src="https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/77c3f7d4ae374e27a7aeacb100b9e67c_9366/Futbolka_Graphic_Non-Dye_belyj_GN4185_01_laydown.jpg" />
+        </a>
+
+    </div>
+    <div class="u-by">@Model.Category</div>
+    <div class="u-name">@Model.Name</div>
+
+    <div class="u-view">
+        <div class="all-size">
+            @{
+
+                foreach (var size in Model.SizeMass)
+                {
+                    <button id="@size.ToString()@Model.ProductID" class="size" onclick="isActive('@size.ToString()','@Model.ProductID')">
+                        @size.ToString()
+                    </button>
+                }
+            }
+        </div>
+
+        <a class="sidebar-link}"
+           href="@Url.Action("ProductView","Product",new { id = @Model.ProductID})">
+ 
+        </a>
+
+        @using (Html.BeginForm("AddToCart", "Cart"))
+        {
+            @Html.HiddenFor(x => x.ProductID)
+            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+            <p>@Model.Price.ToString("c")</p>
+            <input type="submit" style="width: 100%;justify-content: center;" class="vid__button" value="В корзину" />
+            <input id="@Model.ProductID" name="size" class="_size" style="visibility:hidden" value="" />
+        }
+
+
+    </div>
+</div>
+
+<script>
+    function isActive(size,product) {
+        $(".size").removeClass("is-active-size");//чистим активне кнопки
+        $("#" + size + product).addClass("is-active-size");//активация кнопки
+        $("._size").val('');//Очистка inputов
+        $("#" + product).val(size);//установка выбранного размера
+    }
+</script>
+
+
+

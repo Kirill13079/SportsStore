@@ -1,0 +1,14 @@
+﻿@model SportsStore.Model.Entities.Product
+
+@{
+    ViewBag.Title = "Admin: Редактирвоание " + @Model.Name;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h1>Редактирвоание @Model.Name</h1>
+@using (Html.BeginForm("Edit","Admin"))
+{
+    @Html.EditorForModel()
+    <input type="submit" value="Сохранить" />
+    @Html.ActionLink("Отменить и вернуться ко списку", "Index")
+}
+

@@ -1,3 +1,8 @@
+
+using Ninject.Web.Mvc;
+using SportsStore.Binders;
+using SportsStore.Infrastructure;
+using SportsStore.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +21,10 @@ namespace SportsStore
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // внедрение зависимостей
+            ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
+            ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder());
         }
     }
 }
