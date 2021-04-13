@@ -5,8 +5,11 @@
 
 <div class="stream-area">
     <div class="u-stream">
-          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/324a2b86521869.5d9dc3f1bb075.jpg" class="img-carusel" />
-     
+        @if (Model.ImageData != null)
+        {
+            <img src="@Url.Action("GetImage", "Product", new { Model.ProductID })" />
+        }
+
         <div class="u-detail">
             <div class="u-content">
                 <div class="u-p-wrapper anim" style="--delay: .1s">
@@ -14,6 +17,7 @@
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
                             <path d="M20 6L9 17l-5-5"></path>
                         </svg>
+
                         <img class="author-img" src="https://images.pexels.com/photos/1680172/pexels-photo-1680172.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500">
                     </div>
                     <div class="u-p-detail">

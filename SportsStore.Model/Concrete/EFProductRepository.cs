@@ -44,6 +44,9 @@ namespace SportsStore.Model.Concrete
                     dbEntry.Firma = product.Firma;
                     dbEntry.Size = product.Size;
                     dbEntry.Category = product.Category;
+                    dbEntry.ImageData = product.ImageData;
+                    dbEntry.ImageMimeType = product.ImageMimeType;
+
                 }
             }
             context.SaveChanges();

@@ -5,7 +5,13 @@
         <div class="u-time">@Model.Firma</div>
         <a class="sidebar-link"
            href="@Url.Action("ProductView","Product",new { id = @Model.ProductID})">
-            <img class="img-card" src="https://assets.adidas.com/images/h_840,f_auto,q_auto:sensitive,fl_lossy/77c3f7d4ae374e27a7aeacb100b9e67c_9366/Futbolka_Graphic_Non-Dye_belyj_GN4185_01_laydown.jpg" />
+            @if (Model.ImageData != null)
+            {
+                <img class="img-card" src="@Url.Action("GetImage", "Product", new { Model.ProductID })" />
+            }
+            else { 
+                <div class="img-card" ></div>
+            }
         </a>
 
     </div>

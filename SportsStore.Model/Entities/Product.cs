@@ -34,6 +34,7 @@ namespace SportsStore.Model.Entities
         }
 
         public byte[] ImageData { get; set; }
+        [HiddenInput(DisplayValue = false)]
         public string ImageMimeType { get; set; }
 
 
