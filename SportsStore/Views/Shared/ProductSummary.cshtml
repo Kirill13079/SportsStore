@@ -1,19 +1,14 @@
 ﻿@model SportsStore.Model.Entities.Product
 <div class="u anim" style="--delay: .4s">
-
     <div class="u-wrapper">
         <div class="u-time">@Model.Firma</div>
-        <a class="sidebar-link"
-           href="@Url.Action("ProductView","Product",new { id = @Model.ProductID})">
+        <a href="@Url.Action("ProductView","Product",new { id = @Model.ProductID})">
             @if (Model.ImageData != null)
             {
-                <img class="img-card" src="@Url.Action("GetImage", "Product", new { Model.ProductID })" />
-            }
-            else { 
-                <div class="img-card" ></div>
+               string url = String.Format("data:{0};base64,{1}", Model.ImageMimeType, Convert.ToBase64String(Model.ImageData, 0, Model.ImageData.Length));
+              <img class="img-card" src="@url" />
             }
         </a>
-
     </div>
     <div class="u-by">@Model.Category</div>
     <div class="u-name">@Model.Name</div>
@@ -21,19 +16,16 @@
     <div class="u-view">
         <div class="all-size">
             @{
-
                 foreach (var size in Model.SizeMass)
                 {
-                    <button id="@size.ToString()@Model.ProductID" class="size" onclick="isActive('@size.ToString()','@Model.ProductID')">
-                        @size.ToString()
-                    </button>
+                    <button id="@size.ToString()@Model.ProductID" class="size" onclick="isActive('@size.ToString()','@Model.ProductID')">@size.ToString()</button>
                 }
             }
         </div>
 
-        <a class="sidebar-link}"
+        <a class="sidebar-link"
            href="@Url.Action("ProductView","Product",new { id = @Model.ProductID})">
- 
+
         </a>
 
         @using (Html.BeginForm("AddToCart", "Cart"))
@@ -49,14 +41,6 @@
     </div>
 </div>
 
-<script>
-    function isActive(size,product) {
-        $(".size").removeClass("is-active-size");//чистим активне кнопки
-        $("#" + size + product).addClass("is-active-size");//активация кнопки
-        $("._size").val('');//Очистка inputов
-        $("#" + product).val(size);//установка выбранного размера
-    }
-</script>
 
 
 

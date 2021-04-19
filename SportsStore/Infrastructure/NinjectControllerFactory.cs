@@ -30,10 +30,7 @@ namespace SportsStore.Infrastructure
         private void AddBindings()
         {
             ninjectKernel.Bind<IProductRepository>().To<EFProductRepository>();
-            EmailSettings emailSettings = new EmailSettings
-            {
-                WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
-            };
+            SettingsUser emailSettings = new SettingsUser();
             ninjectKernel.Bind<IOrderProcessor>()
             .To<EmailOrderProcessor>()
             .WithConstructorArgument("settings", emailSettings);

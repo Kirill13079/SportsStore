@@ -16,6 +16,12 @@ namespace SportsStore.Model.Concrete
             get { return context.Products; }
         }
 
+        public void AddProduct(Product product)
+        {
+            context.Products.Add(product);
+            context.SaveChanges();
+        }
+
         public Product DeleteProduct(int productID)
         {
             Product dbEntry = context.Products.Find(productID);
@@ -51,5 +57,7 @@ namespace SportsStore.Model.Concrete
             }
             context.SaveChanges();
         }
+
+
     }
 }

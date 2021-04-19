@@ -1,0 +1,53 @@
+﻿.center {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wrapper {
+    display: flex;
+    grid-gap: 1em;
+    overflow: hidden;
+    width: 100%;
+}
+
+.inner {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+.slide {
+    display: flex;
+    grid-gap: 0.5em;
+}
+
+    .slide > img {
+        border-radius: 0.5em;
+        display: block;
+        width: calc(60em / 3);
+    }
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    grid-gap: 1em;
+    margin-top: 2em;
+}
+
+    .buttons > button {
+        all: unset;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 5em;
+        cursor: pointer;
+        padding: 0.15em 2em;
+        transition: all 300ms ease;
+    }
+
+        .buttons > button.active {
+            background: white;
+        }
+
+        .buttons > button:not(.active):hover {
+            background: rgba(255, 255, 255, 0.5);
+        }

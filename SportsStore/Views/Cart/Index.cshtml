@@ -1,52 +1,68 @@
 ﻿@model SportsStore.Models.CartIndexViewModel
 
 @{
-    ViewBag.Title = "Sports Store: Your Cart";
+    ViewBag.Title = "Ваша корзина";
 }
-<h2>Your cart</h2>
-<table width="90%" align="center">
-    <thead>
-        <tr>
-            <th align="center">Quantity</th>
-            <th align="left">Item</th>
-            <th align="right">Price</th>
-            <th align="right">Subtotal</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var line in Model.Cart.Lines)
-        {
-        <tr>
-            <td align="center">@line.Quantity</td>
-            <td align="left">@line.Product.Name</td>
-            <td align="left">@line.Size</td>
-            <td align="right">@line.Product.Price.ToString("c")</td>
-            <td align="right">@((line.Quantity * line.Product.Price).ToString("c"))</td>
-            <td>
-                @using (Html.BeginForm("RemoveFromCart", "Cart"))
-                {
-                    @Html.Hidden("ProductId", line.Product.ProductID)
-                    @Html.HiddenFor(x => x.ReturnUrl)
-                    <input class="actionButtons" type="submit" value="Remove" />
-                }
-            </td>
-        </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="3" align="right">Total:</td>
-            <td align="right">
-                @Model.Cart.ComputeTotalValue().ToString("c")
-            </td>
-        </tr>
-    </tfoot>
-</table>
-<p align="center" class="actionButtons">
-    <a href="@Model.ReturnUrl">Continue shopping</a>
-    @Html.ActionLink("Checkout now", "Checkout")
-</p>
-<p align="center" class="actionButtons">
-    <a href="@Model.ReturnUrl">Continue shopping</a>
-</p>
+@if (Model.Cart.Lines.Count() == 0)
+{
+    <div class="main-header anim" style="--delay: 0s">Ваша корзина пуста</div>
+    <div class="humanoid anim" style="--delay: 0s">
+        <div class="sketch">
+            <div class="bee-sketch red-humanoid"></div>
+            <div class="bee-sketch blue-humanoid"></div>
+        </div>
+    </div>
+}
+else
+{
+
+    <div class="main-header anim" style="--delay: 0s">Ваша корзина</div>
+    <table width="100%" align="center" style="--delay: 0s">
+        <thead>
+            <tr>
+                <th align="left">Количество</th>
+                <th align="left">Товар</th>
+                <th align="left">Размер</th>
+                <th align="right">Стоимость</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var line in Model.Cart.Lines)
+            {
+
+                <tr>
+                    <td align="left" class="anim">@line.Quantity</td>
+                    <td align="left" class="anim">@line.Product.Name</td>
+                    <td align="left" class="anim">@line.Size</td>
+                    <td align="right" class="anim">@((line.Quantity * line.Product.Price).ToString("c"))</td>
+                    <td align="right">
+                        @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                        {
+                            @Html.Hidden("ProductId", line.Product.ProductID)
+                            @Html.HiddenFor(x => x.ReturnUrl)
+                            <input class="like anim" type="submit" value="Удалить" />
+                        }
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" align="right">Итого:</td>
+                <td align="right">
+                    @Model.Cart.ComputeTotalValue().ToString("c")
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="button-wrapper anim" style="margin-top:10px; --delay: 0s ">
+        <a href="@Model.ReturnUrl" class="like">Продолжить покупки</a>
+        @Html.ActionLink("Оформить заказ", "Checkout", null, new { @class = "like red" })
+    </div>
+}
+
+
 

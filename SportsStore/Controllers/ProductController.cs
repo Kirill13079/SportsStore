@@ -6,8 +6,10 @@ using SportsStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace SportsStore.Controllers
 {
@@ -23,24 +25,28 @@ namespace SportsStore.Controllers
             this.repository = productRepository;
         }
 
-        public ViewResult List(string category, int page = 1)
+        public ViewResult List(string search, string category, int page = 1)
         {
+            ViewBag.ValueSearch = search;          
             ProductsListViewModel model = new ProductsListViewModel
             { 
                 Products = repository.Products
                 .Where(p => category == null || p.Category == category)
+                .Where(p=> search == null || p.Name.Contains(search) || p.Category.Contains(search))
                 .OrderBy(p => p.ProductID).Skip((page - 1) * PageSize)
                 .Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = repository.Products.Where(p => category == null || p.Category == category).Count()
+                    TotalItems = repository.Products.Where(p => category == null || p.Category == category)
+                    .Where(p => search == null || p.Name.Contains(search) || p.Category.Contains(search)).Count()
                 },
                 CurrentCategory = category
             };
             return View(model);
         }
+
         public FileContentResult GetImage(int productId)
         {
             Product prod = repository.Products.FirstOrDefault(p => p.ProductID == productId);
@@ -59,5 +65,6 @@ namespace SportsStore.Controllers
             Product product = repository.Products.Where(p => p.ProductID == id).FirstOrDefault();           
             return View(product);
         }
+
     }
 }

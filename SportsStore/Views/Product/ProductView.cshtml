@@ -1,28 +1,33 @@
 ﻿@model SportsStore.Model.Entities.Product
 @{
-    ViewBag.Title = "ProductFull";
+    ViewBag.Title = Model.Name;
 }
 
 <div class="stream-area">
     <div class="u-stream">
-        @if (Model.ImageData != null)
-        {
-            <img src="@Url.Action("GetImage", "Product", new { Model.ProductID })" />
-        }
+        <div class="center">
+            <div class="wrapper">
+                <div class="inner">
+                    <div class="slide">
+                        <img src="@Url.Action("GetImage", "Product", new { productId = @Model.ProductID })">
+                        <img src="@Url.Action("GetImage", "Product", new { productId = @Model.ProductID })">
+                        <img src="@Url.Action("GetImage", "Product", new { productId = @Model.ProductID })">
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button class="btn active first-slide"></button>
+                <button class="btn second-slide"></button>
+            </div>
+        </div>
 
         <div class="u-detail">
             <div class="u-content">
                 <div class="u-p-wrapper anim" style="--delay: .1s">
-                    <div class="author-img__wrapper u-author u-p">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                            <path d="M20 6L9 17l-5-5"></path>
-                        </svg>
-
-                        <img class="author-img" src="https://images.pexels.com/photos/1680172/pexels-photo-1680172.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;w=500">
-                    </div>
-                    <div class="u-p-detail">
-                        <div class="u-p-name">@Model.Firma</div>
-                    </div>
+                    <div class="u-p-title anim" style="--delay: .2s">@Model.Category @Model.Name</div>
                     <div class="button-wrapper">
                         @{
 
@@ -35,39 +40,21 @@
                         }
                     </div>
                 </div>
-                <div class="u-p-title anim" style="--delay: .2s">@Model.Category @Model.Name</div>
                 <div class="u-p-subtitle anim" style="--delay: .3s">@Model.Description</div>
 
             </div>
         </div>
-        <div class="vid__button anim" style="--delay: .6s">В корзину</div>
-    </div>
-    <div class="chat-stream">
-        <div class="chat-vid__container">
-            <div class="chat-vid__title anim" style="--delay: .3s">Вы смотрели</div>
-            <div class="chat-vid anim" style="--delay: .4s">
-                <div class="chat-vid__wrapper">
-                    <img class="chat-vid__img" src="https://cdn.nohat.cc/thumb/f/720/3b55eddcfffa4e87897d.jpg">
-                    <div class="chat-vid__content">
-                        <div class="chat-vid__name">Prepare for your first skateboard jump</div>
-                        <div class="chat-vid__by">Jordan Wise</div>
-                        <div class="chat-vid__info">125.908 views <span class="seperate"></span>2 days ago</div>
-                    </div>
-                </div>
-            </div>
-            <div class="chat-vid anim" style="--delay: .5s">
-                <div class="chat-vid__wrapper">
-                    <img class="chat-vid__img" src="https://iamaround.it/wp-content/uploads/2015/02/pexels-photo-4663818.jpeg">
-                    <div class="chat-vid__content">
-                        <div class="chat-vid__name">Prepare for your first skateboard jump</div>
-                        <div class="chat-vid__by">Jordan Wise</div>
-                        <div class="chat-vid__info">125.908 views <span class="seperate"></span>2 days ago</div>
-                    </div>
-                </div>
-            </div>
 
-        </div>
+        @using (Html.BeginForm("AddToCart", "Cart"))
+        {
+            @Html.HiddenFor(x => x.ProductID)
+            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+            <p class="anim" style="--delay: .7s">@Model.Price.ToString("c")</p>
+            <input type="submit" style="width: 100%;justify-content: center; --delay: .6s" class="vid__button anim" value="В корзину" />
+            <input id="@Model.ProductID" name="size" class="_size" style="visibility:hidden" value="" />
+        }
     </div>
-
 </div>
+
+<script src="~/Scripts/swiper.js"></script>
 

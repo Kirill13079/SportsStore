@@ -6,40 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/swiper.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <link href="~/Content/humanoid.css" rel="stylesheet" />
+    <script>
+        function isActive(size, product) {
+            console.log(size);
+            $(".size").removeClass("is-active-size");//чистим активне кнопки
+            $("#" + size + product).addClass("is-active-size");//активация кнопки
+            $("._size").val('');//Очистка inputов
+            $("#" + product).val(size);//установка выбранного размера
+        }
+    </script>
 
 </head>
 <body>
-
     <div class="container">
         <div class="sidebar">
             <span class="logo">S</span>
             <a class="logo-expand" href="#">SPORTS STORE</a>
             @{ Html.RenderAction("Menu", "Nav"); }
         </div>
-
-
         <div class="wrapper">
             <div class="header">
-                <div class="user-settings">
-                    @{Html.RenderAction("Summary", "Cart");}
+                    @using (Html.BeginForm("List", "Product",null, FormMethod.Post, new { @class = "search-bar" }))
+                    {
+                        <input type="text" name="search" placeholder="Поиск товара" value="@ViewBag.ValueSearch">
+                    }              
+                    <div class="q-settings">
+                        @{Html.RenderAction("Summary", "Cart");}
+                    </div>
                 </div>
-            </div>
-
             <div class="main-container">
-
                 @RenderBody()
-
             </div>
-
-
-
-
         </div>
-
-
     </div>
-
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src="~/Scripts/scripts.js"></script>
 </body>
 

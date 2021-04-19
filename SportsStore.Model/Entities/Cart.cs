@@ -20,7 +20,17 @@ namespace SportsStore.Model.Entities
                 {
                     if (sizes.Size == size)
                     {
-                        sizes.Quantity += quantity; 
+                        sizes.Quantity += quantity;
+                    }
+                    else 
+                    {
+                        lineCollection.Add(new CartLine
+                        {
+                            Product = product,
+                            Quantity = quantity,
+                            Size = size
+                        });
+                        break;
                     }
                 }
             }

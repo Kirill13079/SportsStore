@@ -32,10 +32,10 @@ namespace SportsStore.Model.Entities
                     yield return size.ToString();
             }
         }
-
         public byte[] ImageData { get; set; }
         [HiddenInput(DisplayValue = false)]
         public string ImageMimeType { get; set; }
+
 
 
     }
