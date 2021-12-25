@@ -3,8 +3,8 @@
 </h1>
 
 
-***Это всего лишь демонстрационный вариант!*** Сайт имеет все функции стандартного интернет магазина:
-просмотра товара, добавление/удаление из корзины, оформление заказа
+The site has all the functions of a standard online store:
+viewing a product, adding / removing from the cart, placing an order
 
 
 
