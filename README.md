@@ -3,9 +3,7 @@
 </h1>
 
 
-The site has all the functions of a standard online store:
-viewing a product, adding / removing from the cart, placing an order
-
+На сайте есть все функции стандартного интернет-магазина: просмотр товара, добавление/удаление из корзины, оформление заказа
 
 
 ---
