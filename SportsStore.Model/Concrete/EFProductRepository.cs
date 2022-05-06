@@ -1,35 +1,38 @@
 ﻿using SportsStore.Model.Abstract;
 using SportsStore.Model.Entities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SportsStore.Model.Concrete
 {
     public class EFProductRepository : IProductRepository
     {
-        private EFDbContext context = new EFDbContext();
+        private EFDbContext _context = new EFDbContext();
+
         public IQueryable<Product> Products
         {
-            get { return context.Products; }
+            get 
+            { 
+                return _context.Products; 
+            }
         }
 
         public void AddProduct(Product product)
         {
-            context.Products.Add(product);
-            context.SaveChanges();
+            _context.Products.Add(product);
+            _context.SaveChanges();
         }
 
         public Product DeleteProduct(int productID)
         {
-            Product dbEntry = context.Products.Find(productID);
+            Product dbEntry = _context.Products
+                .Find(productID);
+
             if (dbEntry != null)
             {
-                context.Products.Remove(dbEntry);
-                context.SaveChanges();
+                _context.Products.Remove(dbEntry);
+                _context.SaveChanges();
             }
+
             return dbEntry;
         }
 
@@ -37,11 +40,13 @@ namespace SportsStore.Model.Concrete
         {
             if (product.ProductID == 0)
             {
-                context.Products.Add(product);
+                _context.Products.Add(product);
             }
             else
             {
-                Product dbEntry = context.Products.Find(product.ProductID);
+                Product dbEntry = _context.Products
+                    .Find(product.ProductID);
+
                 if (dbEntry != null)
                 {
                     dbEntry.Name = product.Name;
@@ -52,12 +57,10 @@ namespace SportsStore.Model.Concrete
                     dbEntry.Category = product.Category;
                     dbEntry.ImageData = product.ImageData;
                     dbEntry.ImageMimeType = product.ImageMimeType;
-
                 }
             }
-            context.SaveChanges();
+
+            _context.SaveChanges();
         }
-
-
     }
 }
