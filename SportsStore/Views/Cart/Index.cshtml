@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Ваша корзина";
 }
+
 @if (Model.Cart.Lines.Count() == 0)
 {
     <div class="main-header anim" style="--delay: 0s">Ваша корзина пуста</div>
@@ -15,7 +16,6 @@
 }
 else
 {
-
     <div class="main-header anim" style="--delay: 0s">Ваша корзина</div>
     <table width="100%" align="center" style="--delay: 0s">
         <thead>
@@ -27,7 +27,6 @@ else
             </tr>
         </thead>
         <tbody>
-
             @foreach (var line in Model.Cart.Lines)
             {
 
@@ -57,7 +56,6 @@ else
             </tr>
         </tfoot>
     </table>
-
     <div class="button-wrapper anim" style="margin-top:10px; --delay: 0s ">
         <a href="@Model.ReturnUrl" class="like">Продолжить покупки</a>
         @Html.ActionLink("Оформить заказ", "Checkout", null, new { @class = "like red" })

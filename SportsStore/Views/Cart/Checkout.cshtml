@@ -3,21 +3,19 @@
 @{
     ViewBag.Title = "Оплата";
 }
+
 <div class="main-header">Оплата</div>
 Введите свои данные, и мы сразу же отправим ваш товар!
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary()
-<div class="edit">
-    <input id="Name" name="Name" type="text" value="" placeholder="Имя">
-    <input id="Line1" name="Line1" type="text" value="" placeholder="Адрес">
-    <input id="City" name="City" type="text" value="" placeholder="Город">
-    <input id="Zip" name="Zip" type="text" value="" placeholder="Почтовый индекс">
-</div>
-
-
+    <div class="edit">
+        <input id="Name" name="Name" type="text" value="" placeholder="Имя">
+        <input id="Line1" name="Line1" type="text" value="" placeholder="Адрес">
+        <input id="City" name="City" type="text" value="" placeholder="Город">
+        <input id="Zip" name="Zip" type="text" value="" placeholder="Почтовый индекс">
+    </div>
     <input type="submit" style="width: 100%;justify-content: center;" class="vid__button anim" value="Подтвердить">
-
 }
 
 

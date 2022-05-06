@@ -5,24 +5,17 @@
 
 }
 
-
 @if (Model.Products.Count() > 0)
 {
     <div class="us">
-
         @foreach (var p in Model.Products)
         {
             Html.RenderPartial("ProductSummary", p);
         }
-
     </div>
-
-
     <div class="pager anim" style="--delay: .6s">
-        @Html.PageLinks(Model.PagingInfo, x => Url.Action("List",
-                     new { page = x, category = Model.CurrentCategory, search = Model.Search }))
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("List",new { page = x, category = Model.CurrentCategory, search = Model.Search }))
     </div>
-
 }
 else
 {

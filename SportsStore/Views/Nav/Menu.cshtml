@@ -1,21 +1,19 @@
 ﻿@model IEnumerable<string>
+
 <div class="side-wrapper">
     <div class="side-menu">
-      
         <a class="sidebar-link @{if (ViewBag.SelectedCategory == null){<text>sidebar-link is-active </text>}else{<text>sidebar-link </text>}}" href="@Url.Action("List","Product")">
             <span class="logo" style="background-color:#5847d0">Г</span>
             Главная
         </a>
-        
         @foreach (var link in Model)
         {
             var logo = new String(link.Split(' ').Select(x => x[0]).ToArray());
             <a class="sidebar-link @{if (link == ViewBag.SelectedCategory){<text>sidebar-link is-active </text>}else{<text>sidebar-link </text>}}"
-               href="@Url.Action("List","Product",new { category = link, page = 1 })">           
+               href="@Url.Action("List","Product",new { category = link, page = 1 })">
                 <span class="logo">@logo</span>
                 @link
             </a>
-
         }
     </div>
 </div>

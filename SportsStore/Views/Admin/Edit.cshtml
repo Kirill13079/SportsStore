@@ -4,10 +4,13 @@
     ViewBag.Title = "Админ: Редактирвоание " + @Model.Name;
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 <h1>Редактирвоание @Model.Name</h1>
+
 @using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.EditorForModel()
+
     <div class="editor-label">Image</div>
     <div class="editor-field">
         @if (Model.ImageData == null)
@@ -24,6 +27,7 @@
         </div>
     </div>
     <input type="submit" value="Сохранить" />
+
     @Html.ActionLink("Отменить и вернуться ко списку", "Index")
 }
 
