@@ -3,10 +3,6 @@ using SportsStore.Infrastructure.Concrete;
 using SportsStore.Model.Abstract;
 using SportsStore.Model.Concrete;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -14,27 +10,31 @@ namespace SportsStore.Infrastructure
 {
     public class NinjectControllerFactory : DefaultControllerFactory
     {
-        private IKernel ninjectKernel;
+        private readonly IKernel _ninjectKernel;
+
         public NinjectControllerFactory()
         {
-            ninjectKernel = new StandardKernel();
+            _ninjectKernel = new StandardKernel();
             AddBindings();
         }
-        protected override IController GetControllerInstance(RequestContext requestContext,
-       Type controllerType)
+
+        protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
         {
-            return controllerType == null
-            ? null
-            : (IController)ninjectKernel.Get(controllerType);
+            return controllerType == null 
+                ? null 
+                : (IController)_ninjectKernel.Get(controllerType);
         }
+
         private void AddBindings()
         {
-            ninjectKernel.Bind<IProductRepository>().To<EFProductRepository>();
+            _ninjectKernel.Bind<IProductRepository>().To<EFProductRepository>();
+
             SettingsUser emailSettings = new SettingsUser();
-            ninjectKernel.Bind<IOrderProcessor>()
-            .To<EmailOrderProcessor>()
-            .WithConstructorArgument("settings", emailSettings);
-            ninjectKernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
+
+            _ninjectKernel.Bind<IOrderProcessor>()
+                .To<EmailOrderProcessor>()
+                .WithConstructorArgument("settings", emailSettings);
+            _ninjectKernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
         }
     }
 }

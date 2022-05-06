@@ -68,7 +68,10 @@ namespace SportsStore.Model.Entities
 
         public IEnumerable<CartLine> Lines
         {
-            get { return _lineCollection; }
+            get 
+            { 
+                return _lineCollection; 
+            }
         }
 
         private string GetCase(int value, string[] options)

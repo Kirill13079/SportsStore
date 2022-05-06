@@ -1,26 +1,27 @@
 ﻿using SportsStore.Model.Abstract;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SportsStore.Controllers
 {
     public class NavController : Controller
     {
-        private IProductRepository repository;
+        private readonly IProductRepository _repository;
+
         public NavController(IProductRepository repo)
         {
-            repository = repo;
+            _repository = repo;
         }
+
         public PartialViewResult Menu(string category = null)
         {
             ViewBag.SelectedCategory = category;
-            IEnumerable<string> categories = repository.Products
-            .Select(x => x.Category)
-            .Distinct()
-            .OrderBy(x => x);
+            IEnumerable<string> categories = _repository.Products
+                .Select(x => x.Category)
+                .Distinct()
+                .OrderBy(x => x);
+
             return PartialView(categories);
         }
     }

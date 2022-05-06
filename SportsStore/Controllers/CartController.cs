@@ -1,22 +1,20 @@
 ﻿using SportsStore.Model.Abstract;
 using SportsStore.Model.Entities;
 using SportsStore.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SportsStore.Controllers
 {
     public class CartController : Controller
     {
-        private IProductRepository repository;
-        private IOrderProcessor orderProcessor;
+        private readonly IProductRepository _repository;
+        private readonly IOrderProcessor _orderProcessor;
+
         public CartController(IProductRepository repo, IOrderProcessor proc)
         {
-            repository = repo;
-            orderProcessor = proc;
+            _repository = repo;
+            _orderProcessor = proc;
         }
 
         public ViewResult Index(Cart cart, string returnUrl)
@@ -27,6 +25,7 @@ namespace SportsStore.Controllers
                 ReturnUrl = returnUrl
             });
         }
+
         public ViewResult Checkout()
         {
             return View(new ShippingDetails());
@@ -44,10 +43,12 @@ namespace SportsStore.Controllers
             {
                 ModelState.AddModelError("", "Извините, ваша корзина пуста");
             }
+
             if (ModelState.IsValid)
             {
-                orderProcessor.ProcessOrder(cart, shippingDetails);
+                _orderProcessor.ProcessOrder(cart, shippingDetails);
                 cart.Clear();
+
                 return View("Completed");
             }
             else
@@ -61,29 +62,37 @@ namespace SportsStore.Controllers
             foreach (var find in product.SizeMass)
             {
                 if (find == size)
+                {
                     return product;
+                }
             }
+
             return null;
         }
 
         public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl, string size)
         {      
-            Product product = repository.Products
-            .FirstOrDefault(p => p.ProductID == productId);
+            Product product = _repository.Products
+                .FirstOrDefault(p => p.ProductID == productId);
+
             if (FindSize(product,size) != null)
             {
                 cart.AddItem(product, 1, size);
             }
+
             return RedirectToAction("Index", new { returnUrl });
         }
+
         public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl)
         {
-            Product product = repository.Products
-            .FirstOrDefault(p => p.ProductID == productId);
+            Product product = _repository.Products
+                .FirstOrDefault(p => p.ProductID == productId);
+
             if (product != null)
             {
                 cart.RemoveLine(product);
             }
+
             return RedirectToAction("Index", new { returnUrl });
         }
     }
